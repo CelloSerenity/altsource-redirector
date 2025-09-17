@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sideload Redirector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .link-button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .link-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sideload Redirector</h1>
+    <div id="links-container">
+        <p>Loading links...</p>
+    </div>
+
+    <script>
+        // Get URL parameter
+        const params = new URLSearchParams(window.location.search);
+        const originalUrl = params.get('url');
+
+        const container = document.getElementById('links-container');
+
+        if (!originalUrl) {
+            container.innerHTML = '<p style="color:red;">No URL provided. Add ?url=YOUR_URL to the address bar.</p>';
+        } else {
+            const sidestore = `sidestore://source?url=${encodeURIComponent(originalUrl)}`;
+            const altstore = `altstore://source?url=${encodeURIComponent(originalUrl)}`;
+            const feather = `feather://source/${encodeURIComponent(originalUrl)}`;
+
+            container.innerHTML = `
+                <a class="link-button" href="${sidestore}">Open in SideStore</a>
+                <a class="link-button" href="${altstore}">Open in AltStore</a>
+                <a class="link-button" href="${feather}">Open in Feather</a>
+            `;
+        }
+    </script>
+</body>
+</html>
