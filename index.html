@@ -21,18 +21,20 @@
         #links-container {
             display: flex;
             flex-direction: column;
-            align-items: center; 
+            align-items: center; /* centers links horizontally */
         }
         .link-button {
             display: block;
+            width: 220px; /* all buttons same width */
             margin: 10px 0;
-            padding: 10px 20px;
+            padding: 12px 0;
             background-color: #007BFF;
             color: white;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-weight: bold;
             text-align: center;
+            transition: background-color 0.2s;
         }
         .link-button:hover {
             background-color: #0056b3;
