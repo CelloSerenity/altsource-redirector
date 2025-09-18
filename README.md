@@ -1,4 +1,4 @@
 # AltSource Redirector
-A little tool to redirect AltSource links to your preferred application.
+A little webpage to redirect AltSources to your preferred sideloading application. Please don't use this to redirect AltSources of pirated applications.
 
-I'm going to be honest, this is almost entirely made by ChatGPT. I'm sorry.
+I'm going to be honest, a lot of this is AI-generated. I'm sorry.
