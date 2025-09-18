@@ -22,8 +22,10 @@
             display: flex;
             flex-direction: column;
             align-items: center; 
+            justify-content: center;
+            min-height: 150px;
         }
-        .link-button {
+        .link-button, .copy-button {
             display: block;
             width: 200px;
             margin: 10px 0;
@@ -35,9 +37,20 @@
             font-weight: bold;
             text-align: center;
             transition: background-color 0.2s;
+            cursor: pointer;
+            border: none;
         }
-        .link-button:hover {
+        .link-button:hover, .copy-button:hover {
             background-color: #0056b3;
+        }
+        .centered-message {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 120px;
+            color: red;
+            text-align: center;
+            width: 100%;
         }
     </style>
 </head>
@@ -53,7 +66,7 @@
         const container = document.getElementById('links-container');
 
         if (!originalUrl) {
-            container.innerHTML = '<p style="color:red;">No URL provided. Add ?url=YOUR_URL to the address bar.</p>';
+            container.innerHTML = '<p class="centered-message">No URL provided.<br>Add <code>?url=YOUR_URL</code> to the address bar.</p>';
         } else {
             const safeUrl = originalUrl.replace(/ /g, '%20');
             const sidestore = `sidestore://source?url=${safeUrl}`;
@@ -64,7 +77,20 @@
                 <a class="link-button" href="${sidestore}">Open in SideStore</a>
                 <a class="link-button" href="${altstore}">Open in AltStore</a>
                 <a class="link-button" href="${feather}">Open in Feather</a>
+                <button class="copy-button" id="copy-link-btn">Copy Link</button>
             `;
+
+            document.getElementById('copy-link-btn').onclick = function() {
+                navigator.clipboard.writeText(originalUrl)
+                    .then(() => {
+                        this.textContent = "Copied!";
+                        setTimeout(() => { this.textContent = "Copy Link"; }, 1500);
+                    })
+                    .catch(() => {
+                        this.textContent = "Failed to copy";
+                        setTimeout(() => { this.textContent = "Copy Link"; }, 1500);
+                    });
+            };
         }
     </script>
 </body>
