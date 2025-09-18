@@ -5,33 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AltSource Redirector</title>
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f4;
+            justify-content: flex-start;
         }
         h1 {
-            margin-bottom: 20px;
+            margin-top: 48px;
+            margin-bottom: 24px;
+            text-align: center;
         }
         #links-container {
             display: flex;
             flex-direction: column;
-            align-items: center; 
+            align-items: center;
             justify-content: center;
-            min-height: 150px;
+            min-height: 200px;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
         }
-        .link-button, .copy-button {
+        .custom-button {
             display: block;
             width: 200px;
-            margin: 10px 0;
+            margin: 12px auto;
             padding: 12px 0;
             background-color: #007BFF;
-            color: white;
+            color: #fff;
             text-decoration: none;
             border-radius: 8px;
             font-weight: bold;
@@ -39,18 +48,37 @@
             transition: background-color 0.2s;
             cursor: pointer;
             border: none;
+            font-size: 16px;
+            line-height: 1.2;
+            box-sizing: border-box;
+            outline: none;
         }
-        .link-button:hover, .copy-button:hover {
+        .custom-button:hover,
+        .custom-button:focus {
             background-color: #0056b3;
         }
         .centered-message {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 120px;
-            color: red;
-            text-align: center;
+            height: 180px;
             width: 100%;
+            max-width: 350px;
+            margin: 40px auto 0 auto;
+            color: #c0392b;
+            background: #fff7f7;
+            border: 1px solid #f0d6d6;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(200,60,60,0.07);
+            padding: 32px 18px 24px 18px;
+            font-size: 1.07em;
+        }
+        code {
+            background: #f0f0f0;
+            border-radius: 5px;
+            padding: 2px 6px;
+            font-size: 0.98em;
         }
     </style>
 </head>
@@ -66,7 +94,15 @@
         const container = document.getElementById('links-container');
 
         if (!originalUrl) {
-            container.innerHTML = '<p class="centered-message">No URL provided.<br>Add <code>?url=YOUR_URL</code> to the address bar.</p>';
+            container.innerHTML = `
+                <div class="centered-message">
+                    <strong>No URL provided.</strong>
+                    <br>
+                    <span>
+                        Please add <code>?url=YOUR_URL</code> to the address bar.
+                    </span>
+                </div>
+            `;
         } else {
             const safeUrl = originalUrl.replace(/ /g, '%20');
             const sidestore = `sidestore://source?url=${safeUrl}`;
@@ -74,10 +110,10 @@
             const feather = `feather://source/${safeUrl}`;
 
             container.innerHTML = `
-                <a class="link-button" href="${sidestore}">Open in SideStore</a>
-                <a class="link-button" href="${altstore}">Open in AltStore</a>
-                <a class="link-button" href="${feather}">Open in Feather</a>
-                <button class="copy-button" id="copy-link-btn">Copy Link</button>
+                <a class="custom-button" href="${sidestore}">Open in SideStore</a>
+                <a class="custom-button" href="${altstore}">Open in AltStore</a>
+                <a class="custom-button" href="${feather}">Open in Feather</a>
+                <button class="custom-button" id="copy-link-btn">Copy Link</button>
             `;
 
             document.getElementById('copy-link-btn').onclick = function() {
